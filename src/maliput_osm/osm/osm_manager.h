@@ -34,8 +34,8 @@
 #include <unordered_map>
 
 #include <maliput/common/maliput_copyable.h>
-
-#include "maliput_osm/osm/segment.h"
+#include <maliput_sparse/parser/parser.h>
+#include <maliput_sparse/parser/segment.h>
 
 namespace maliput_osm {
 namespace osm {
@@ -48,7 +48,7 @@ struct ParserConfig {
 
 /// OSMManager is in charge of loading a Lanelet2-OSM map, parsing it, and providing
 /// accessors to get the map's important data.
-class OSMManager {
+class OSMManager : public maliput_sparse::parser::Parser {
  public:
   MALIPUT_NO_COPY_NO_MOVE_NO_ASSIGN(OSMManager)
 
@@ -59,11 +59,12 @@ class OSMManager {
 
   ~OSMManager();
 
+ private:
   /// Gets the map's segments.
-  const std::unordered_map<Segment::Id, Segment>& GetOSMSegments() const;
+  const std::unordered_map<maliput_sparse::parser::Segment::Id, maliput_sparse::parser::Segment>& DoGetSegments() const override;
 
  private:
-  std::unordered_map<Segment::Id, Segment> segments_{};
+  std::unordered_map<maliput_sparse::parser::Segment::Id, maliput_sparse::parser::Segment> segments_{};
 };
 
 }  // namespace osm

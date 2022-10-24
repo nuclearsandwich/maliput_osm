@@ -38,7 +38,11 @@
 namespace maliput_osm {
 namespace osm {
 
-OSMManager::OSMManager(const std::string& osm_file_path, const ParserConfig& config) {
+using maliput_sparse::parser::Lane;
+using maliput_sparse::parser::Segment;
+using maliput_sparse::parser::Parser;
+
+OSMManager::OSMManager(const std::string& osm_file_path, const ParserConfig& config) : Parser() {
   using namespace lanelet;
   const LaneletMapPtr map = load(osm_file_path, Origin{GPSPoint{config.origin.x(), config.origin.y()}});
 
@@ -55,7 +59,7 @@ OSMManager::OSMManager(const std::string& osm_file_path, const ParserConfig& con
 
 OSMManager::~OSMManager() = default;
 
-const std::unordered_map<Segment::Id, Segment>& OSMManager::GetOSMSegments() const { return segments_; }
+const std::unordered_map<Segment::Id, Segment>& OSMManager::DoGetSegments() const { return segments_; }
 
 }  // namespace osm
 }  // namespace maliput_osm

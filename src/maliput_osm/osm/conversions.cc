@@ -45,7 +45,7 @@ LineString3d ToMaliput(const lanelet::ConstLineString3d& line_string) {
   return LineString3d{points};
 }
 
-Lane ToMaliput(const lanelet::Lanelet& lanelet, const lanelet::LaneletLayer& map_layer) {
+maliput_sparse::parser::Lane ToMaliput(const lanelet::Lanelet& lanelet, const lanelet::LaneletLayer& map_layer) {
   // Get Id.
   const std::string id = std::to_string(lanelet.id());
   // Get left boundary.

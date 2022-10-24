@@ -3,7 +3,6 @@
 ##############################################################################
 add_library(builder
   builder_configuration.cc
-  road_geometry_builder.cc
   road_network_builder.cc
 )
 
@@ -29,6 +28,7 @@ target_link_libraries(builder
   PRIVATE
     maliput_sparse::builder
     maliput_sparse::geometry
+    maliput_sparse::loader
     maliput_osm::osm
 )
 

@@ -44,9 +44,10 @@
 #include <maliput/base/traffic_light_book_loader.h>
 #include <maliput/common/logger.h>
 #include <maliput/common/maliput_unused.h>
+#include <maliput_sparse/loader/road_geometry_loader.h>
+#include <maliput_sparse/parser/parser.h>
 
 #include "maliput_osm/builder/builder_configuration.h"
-#include "maliput_osm/builder/road_geometry_builder.h"
 #include "maliput_osm/osm/osm_manager.h"
 
 namespace maliput_osm {
@@ -57,10 +58,10 @@ std::unique_ptr<maliput::api::RoadNetwork> RoadNetworkBuilder::operator()() cons
 
   maliput::log()->info("Loading database from file: {} ...", builder_config.osm_file);
 
-  std::unique_ptr<osm::OSMManager> osm_manager =
+  std::unique_ptr<maliput_sparse::parser::Parser> osm_manager =
       std::make_unique<osm::OSMManager>(builder_config.osm_file, osm::ParserConfig{builder_config.origin});
   maliput::log()->trace("Building RoadGeometry...");
-  std::unique_ptr<const maliput::api::RoadGeometry> rg = RoadGeometryBuilder(std::move(osm_manager), builder_config)();
+  std::unique_ptr<const maliput::api::RoadGeometry> rg = maliput_sparse::loader::RoadGeometryLoader(std::move(osm_manager), builder_config.sparse_config)();
 
   // TODO(https://github.com/maliput/maliput_osm/issues/12): Populate the books.
 

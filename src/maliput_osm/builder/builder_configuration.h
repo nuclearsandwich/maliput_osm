@@ -31,6 +31,7 @@
 
 #include <maliput/api/road_geometry.h>
 #include <maliput/math/vector.h>
+#include <maliput_sparse/loader/builder_configuration.h>
 
 namespace maliput_osm {
 namespace builder {
@@ -44,20 +45,12 @@ struct BuilderConfiguration {
   /// @returns A string-string map containing the builder configuration.
   std::map<std::string, std::string> ToStringMap() const;
 
-  /// Id of the road geometry.
-  maliput::api::RoadGeometryId road_geometry_id{"maliput_osm"};
+  /// Configuration for the maliput_sparse builder
+  maliput_sparse::loader::BuilderConfiguration sparse_config;
   /// Path to the OSM file.
   std::string osm_file{""};
   /// Origin in lat/lon coordinates of the OSM file description.
   maliput::math::Vector2 origin{0., 0.};
-  /// Linear resolution of the road geometry.
-  double linear_tolerance{1.e-3};
-  /// Angular resolution of the road geometry.
-  double angular_tolerance{1.e-3};
-  /// Scale factor for road geometry.
-  double scale_length{1.};
-  /// Translation from maliput to maliput_osm inertial frame.
-  maliput::math::Vector3 inertial_to_backend_frame_translation{};
 };
 
 }  // namespace builder

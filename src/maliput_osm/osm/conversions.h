@@ -32,8 +32,7 @@
 #include <lanelet2_core/LaneletMap.h>
 #include <lanelet2_core/primitives/Lanelet.h>
 #include <maliput_sparse/geometry/line_string.h>
-
-#include "maliput_osm/osm/lane.h"
+#include <maliput_sparse/parser/lane.h>
 
 namespace maliput_osm {
 namespace osm {
@@ -50,7 +49,7 @@ maliput_sparse::geometry::LineString3d ToMaliput(const lanelet::ConstLineString3
 /// @param lanelet The lanelet::Lanelet to convert.
 /// @param map_layer lanelet::LaneletLayer for finding adjacent lanelets.
 /// @returns The converted maliput_osm::osm::Lane.
-Lane ToMaliput(const lanelet::Lanelet& lanelet, const lanelet::LaneletLayer& map_layer);
+maliput_sparse::parser::Lane ToMaliput(const lanelet::Lanelet& lanelet, const lanelet::LaneletLayer& map_layer);
 
 }  // namespace osm
 }  // namespace maliput_osm
